@@ -1,0 +1,9 @@
+export const SIGNUP = '/signup';
+export const LOGIN = '/';
+export const HOME = '/home';
+export const DASHBOARD='/home/dash';
+export const CALLS = '/home/calls';
+export const EVENTS = '/home/events';
+export const SUPPORT = '/home/support';
+export const USERS = '/home/usuarios';
+export const CLIENTS = '/home/clientes';

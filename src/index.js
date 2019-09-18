@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+//import BackGroundImage from "./images/Transmission-Control-Center-Project.jpg";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
