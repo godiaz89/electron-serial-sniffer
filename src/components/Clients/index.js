@@ -6,7 +6,7 @@ import { Grid,LinearProgress } from '@material-ui/core';
 import * as socketcli from '../../socket/cliente';
 import * as events from '../../socket/events';
 import ClientsListDT from './ClientsListDT';
-const drawerWidth = 240;
+
 
 const styles = theme => ({
     root: {
@@ -28,9 +28,9 @@ const styles = theme => ({
 
 
 const Clients = (props) => {
-    const [data, setData] = useState(ss.createStream())
+    const [data, setData] = useState([])
     const [completed, setCompleted] = useState(false)
-    const [rendered, setRendered] = useState(false)
+    // const [rendered, setRendered] = useState(false)
     
     var pagesize=process.env.CLIENTSLIST_PAGE_SIZE||10;
 
@@ -87,10 +87,6 @@ const Clients = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         {completed===false&&<LinearProgress/>}
-                        
-                    </Grid>
-                    <Grid item xs={12}>
-                        {data.length}
                         
                     </Grid>
                 </Grid>

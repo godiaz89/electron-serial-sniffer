@@ -23,37 +23,37 @@ const styles = {
 class ClientsListDT extends React.Component {
   constructor(props) {
     super(props);
-    this.state = [{
+    this.state = {
       datashowned: [],
       dataSelected:[],
       idselected:'',
       openData:false
-    }]
+    }
   }
 
   columns = [
     {
       name: 'Cliente',
-      cell: row => <div>{row.objetivo == 'FIJO' ?
+      cell: row => <div>{row.objetivo === 'FIJO' ?
         <FontAwesomeIcon icon={Icon.faHome} size='lg'></FontAwesomeIcon>
         :
         <FontAwesomeIcon icon={Icon.faCar} size='lg'></FontAwesomeIcon>} &nbsp; {row.cliente} </div>,
       sortable: true,
-      grow: 0.5,
+      //grow: 1,
       button: true
     },
     {
       name: 'Nombre',
       selector: 'nombre',
       sortable: true,
-      grow: 1,
+      //grow: 1,
       button: true
     },
     {
       name: 'Domicilio',
       cell: row => <div>{row.ciudad + row.barrio + row.calle + row.numero}</div>,
       sortable: true,
-      grow: 3,
+      //grow: 3,
       button: true
     }
   ];

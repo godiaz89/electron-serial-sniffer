@@ -41,9 +41,11 @@ export const consume = (event, cb) => {
 /***
  * Envia evento y escucha la respuesta para los reportes olap -- Funcion general
  */
-export const sendReport = (mes,event,cb) => {
+export const sendReport = (event,mes,cb) => {
     socket.emit(event.get, mes);
+    console.log('Emitido '+event.get + mes);
     socket.on(event.take, rows => {
+        console.log('Recibo '+event.take);
         cb(rows);
     });
 }

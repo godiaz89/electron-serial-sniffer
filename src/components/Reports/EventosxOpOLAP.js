@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import genXLSX from '../../xlsx/xlsx';
 import * as socketcli from '../../socket/cliente';
+import * as eventos from '../../socket/events';
 import moment from 'moment';
 import {
   DatePicker,
@@ -37,8 +38,8 @@ export default function EventosxOpOLAP(props) {
   
   
   function getEventosxOp(params) {
-    console.log(mes);
-    socketcli.sendReport(moment(mes).format('YYMM'), result => {
+    console.log(moment(mes).format('YYMM'));
+    socketcli.sendReport(eventos.OLAPEXO,moment(mes).format('YYMM'), result => {
       genXLSX(result, REPNAME);
 
     });
@@ -47,8 +48,8 @@ export default function EventosxOpOLAP(props) {
   return (
     <div>
         <Dialog
-          open={this.props.open}
-          onClose={this.props.onClose}
+          open={props.open}
+          onClose={props.onClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Eventos por operador</DialogTitle>
@@ -68,7 +69,7 @@ export default function EventosxOpOLAP(props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onClose} color="primary">
+            <Button onClick={props.onClose} color="primary">
               Cancelar
               </Button>
             <Button onClick={getEventosxOp} color="primary">

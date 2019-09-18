@@ -17,3 +17,6 @@ export const MARKERSMAPA={get:'getLatLonMap',take:'takeLatLonMap'}
 /**EVENTOS PARA TABLAS */
 export const ZAS={get:'getZAS',take:'takeZAS'}
 export const ZAD={get:'getZAD',take:'takeZAD'}
+
+/** EVENTOS PARA OLAP */
+export const OLAPEXO={get:'genOLAPExO',take:'takeOLAPExO'}
