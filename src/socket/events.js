@@ -20,3 +20,10 @@ export const ZAD={get:'getZAD',take:'takeZAD'}
 
 /** EVENTOS PARA OLAP */
 export const OLAPEXO={get:'genOLAPExO',take:'takeOLAPExO'}
+export const OLAPEMT = { get: 'genOLAPEMT', take: 'takeOLAPEMT' }
+export const OLAPTRM = { get: 'genOLAPTRM', take: 'takeOLAPTRM'}
+export const OLAPMS = { get: 'genOLAPMS', take: 'takeOLAPMS'}
+export const OLAPMM = { get: 'genOLAPMM', take: 'takeOLAPMM'}
+export const OLAPOZAS = { get: 'genOLAPZAS', take: 'takeOLAPZAS'}
+export const OLAPOZAD = { get: 'genOLAPZAD', take: 'takeOLAPZAD'}
+export const OLAPFAXC = { get: 'genOLAPFAxC', take: 'takeOLAPFAxC'}

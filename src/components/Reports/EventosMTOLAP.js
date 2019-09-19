@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import blue from '@material-ui/core/colors/blue';
@@ -9,7 +9,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import genXLSX from '../../xlsx/xlsx';
 import * as socketcli from '../../socket/cliente';
+import * as eventos from '../../socket/events';
 import moment from 'moment';
+import { DatePicker} from "@material-ui/pickers";
 
 
 const styles = {
@@ -21,32 +23,23 @@ const styles = {
 
 const REPNAME='OLAPEMT';
 
-export default class EventosMTOLAP extends React.Component {
-    constructor(props){
-        super(props);
-        this.state={data:[],mes:moment().format('YYMM')};
-      }
-    
-    handleChangeInput=(e)=>{
-        console.log('estado: ',this.state.mes,' value: ',e.target.value);
-        this.setState({mes:moment(e.target.value).format('YYMM')});
-        console.log('estado final: ',this.state.mes);
-    }
-    
-    getEventosMT=()=>{
-        console.log(this.state.mes);
-        socketcli.genReporteEMT(this.state.mes,result=>{
-          genXLSX(result,REPNAME+this.state.mes);
-    
-        });
-    }
+function EventosMTOLAP(props) {
+  const [mes, setMes] = useState(new Date())
+
   
-    render() {
-      return (
-        <div>
+  function getEventosMT() {
+    socketcli.sendReport(eventos.OLAPEMT,moment(mes).format('YYMM'), result => {
+      genXLSX(result, REPNAME);
+
+    });
+  }
+
+
+  return (
+    <div>
           <Dialog
-            open={this.props.open}
-            onClose={this.props.onClose}
+            open={props.open}
+            onClose={props.onClose}
             aria-labelledby="form-dialog-title"
           >
             <DialogTitle id="form-dialog-title">Eventos mal tratados</DialogTitle>
@@ -54,26 +47,27 @@ export default class EventosMTOLAP extends React.Component {
               <DialogContentText>
                 Este reporte muestra los eventos mal tratados en el mes.
               </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="mes"
-                label="Ingrese mes"
-                type="month"
-                fullWidth
-                onChange={this.handleChangeInput}
-              />
+              <DatePicker
+              variant="inline"
+              openTo="year"
+              views={["year", "month"]}
+              label="Año y mes"
+              helperText="Seleccionar mes para el reporte"
+              value={mes}
+              onChange={setMes}
+            />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.props.onClose} color="primary">
+              <Button onClick={props.onClose} color="primary">
                 Cancelar
               </Button>
-              <Button onClick={this.getEventosMT} color="primary">
+              <Button onClick={getEventosMT} color="primary">
                 Generar
               </Button>
             </DialogActions>
           </Dialog>
         </div>
-      );
-    }
-  }
+  )
+}
+
+export default EventosMTOLAP

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import blue from '@material-ui/core/colors/blue';
@@ -9,7 +9,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import genXLSX from '../../xlsx/xlsx';
 import * as socketcli from '../../socket/cliente';
+import * as eventos from '../../socket/events';
 import moment from 'moment';
+import { DatePicker } from "@material-ui/pickers";
+
 
 
 const styles = {
@@ -18,61 +21,54 @@ const styles = {
     color: blue[600],
   },
 };
-const REPNAME='OLAPFAXC';
+const REPNAME = 'OLAPFAXC';
 
-export default class FAxCOLAP extends React.Component {
-    constructor(props){
-        super(props);
-        this.state={data:[],mes:moment().format('YYMM')};
-      }
-    
-    handleChangeInput=(e)=>{
-        console.log('estado: ',this.state.mes,' value: ',e.target.value);
-        this.setState({mes:moment(e.target.value).format('YYMM')});
-        console.log('estado final: ',this.state.mes);
-    }
-    
-    genOLAPFAxC=()=>{
-        console.log(this.state.mes);
-        socketcli.genOLAPFAxC(this.state.mes,result=>{
-          genXLSX(result,REPNAME);
-    
-        });
-    }
-  
-    render() {
-      return (
-        <div>
-          <Dialog
-            open={this.props.open}
-            onClose={this.props.onClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">FALSAS ALARMAS POR CUENTA</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Este reporte muestra las falsas alarmas en cada cuenta.
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="mes"
-                label="Ingrese mes"
-                type="month"
-                fullWidth
-                onChange={this.handleChangeInput}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.props.onClose} color="primary">
-                Cancelar
-              </Button>
-              <Button onClick={this.genOLAPFAxC} color="primary">
-                Generar
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      );
-    }
+
+
+function FAxCOLAP(props) {
+
+  const [mes, setMes] = useState(new Date())
+
+  function genOLAPFAxC() {
+    socketcli.sendReport(eventos.OLAPFAXC, moment(mes).format('YYMM'), result => {
+      genXLSX(result, REPNAME);
+    });
   }
+
+
+  return (
+    <div>
+      <Dialog
+        open={props.open}
+        onClose={props.onClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">FALSAS ALARMAS POR CUENTA</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Este reporte muestra las falsas alarmas en cada cuenta.
+        </DialogContentText>
+          <DatePicker
+            variant="inline"
+            openTo="year"
+            views={["year", "month"]}
+            label="Año y mes"
+            helperText="Seleccionar mes para el reporte"
+            value={mes}
+            onChange={setMes}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={props.onClose} color="primary">
+            Cancelar
+        </Button>
+          <Button onClick={genOLAPFAxC} color="primary">
+            Generar
+        </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  )
+}
+
+export default FAxCOLAP;

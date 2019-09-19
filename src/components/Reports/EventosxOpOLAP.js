@@ -11,12 +11,7 @@ import genXLSX from '../../xlsx/xlsx';
 import * as socketcli from '../../socket/cliente';
 import * as eventos from '../../socket/events';
 import moment from 'moment';
-import {
-  DatePicker,
-  TimePicker,
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { DatePicker} from "@material-ui/pickers";
 
 
 const styles = {

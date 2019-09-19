@@ -4,20 +4,6 @@ const socket = openSocket(process.env.BKENDURL || 'http://localhost:8000');
 const ss = require('socket.io-stream')
 
 
-export const readDataStream = (event, params, datastream) => {
-    return new Promise((resolve, reject) => {
-        try {
-            console.log('readDataStream manda ', params, datastream + socket)
-            ss(socket).emit(event.get, datastream, params);
-            resolve(datastream)
-
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
-
 
 /***
  * Emite evento con parametros opcionales ingresados
@@ -47,8 +33,24 @@ export const sendReport = (event,mes,cb) => {
     console.log('Emitido '+event.get + mes);
     socket.on(event.take, rows => {
         console.log('Recibo '+event.take);
-        cb(rows);
+        cb(rows[0]);
     });
+}
+
+
+
+/**Evia evento y adjunta stream */
+export const readDataStream = (event, params, datastream) => {
+    return new Promise((resolve, reject) => {
+        try {
+            console.log('readDataStream manda ', params, datastream + socket)
+            ss(socket).emit(event.get, datastream, params);
+            resolve(datastream)
+
+        } catch (error) {
+            reject(error)
+        }
+    })
 }
 
 
