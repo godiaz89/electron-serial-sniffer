@@ -30,10 +30,11 @@ export const consume = (event, cb) => {
  */
 export const sendReport = (event,mes,cb) => {
     socket.emit(event.get, mes);
-    console.log('Emitido '+event.get + mes);
+    console.log('Emitido ',event.get, mes);
     socket.on(event.take, rows => {
         console.log('Recibo '+event.take);
-        cb(rows[0]);
+        if(event.engine==='mysql')cb(rows[0]);
+        else cb(rows);
     });
 }
 
