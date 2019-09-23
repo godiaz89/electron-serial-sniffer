@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -77,29 +77,33 @@ class MainListItems extends React.Component {
 
 function SecondaryListItems() {
 
-  const [open, setOpen] = useState(new Array(REPORTS.length).fill(false))
-  var/*  */ count=0;
+  const [open, setOpen] = useState(false)
 
-  const changeState=(i)=> {
-    count++;
-    console.log(count)
-    setOpen(o => {
-      if(o.some(e=>e===true)) return o;
-      else return o.map((s, j) => j === i ? !s : s)
-    })
-  }
+  // useEffect(() => {
+  //   console.log('Cambio open: ', open)
+  //   return () => {
+  //     console.log('Matando listitem')
+  //   };
+  // }, [open])
+
+  const openForm=useCallback(
+    (i) => {
+      setOpen(i)
+    },
+    [],
+  )
 
   return (
     <div>
       <ListSubheader inset>Reportes</ListSubheader>
       {REPORTS.map((r, i) => {
         return (
-          <ListItem button key={i} onClick={() => changeState(i)}>
+          <ListItem button key={i} onClick={()=>openForm(i)}>
             <ListItemIcon>
               <AssignmentIcon />
             </ListItemIcon>
             <ListItemText primary={r.title} />
-            <Olap event={r} open={open[i]} onClose={changeState} position={i}/>
+            <Olap event={r} open={i===open} onClose={()=>openForm(false)} />
           </ListItem>
 
         );

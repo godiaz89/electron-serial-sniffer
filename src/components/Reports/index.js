@@ -32,7 +32,7 @@ export default function Olap(props) {
   }
 
   var handleClose=()=>{
-    props.onClose(props.position)
+    props.onClose()
   }
 
   return (
@@ -41,6 +41,7 @@ export default function Olap(props) {
         open={props.open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        onClick={e=>e.stopPropagation()}
       >
         <DialogTitle id="form-dialog-title">{props.event.title}</DialogTitle>
         <DialogContent>
