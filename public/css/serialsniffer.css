@@ -1,0 +1,35 @@
+.dataviewer{
+    margin-right: 0;
+    height: 100%;
+}
+
+.dashboard{
+    height: 100%;
+}
+
+.comcheckbox{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.com-input.form-control{
+    width: 60%;
+    flex-grow: 3;
+    margin-left: 5;
+}
+
+.com-form-group.form-group{
+    display: flex;
+    align-items: baseline;
+
+}
+
+.com-nav-group-item.nav-group-item{
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.com-icon.icon{
+    margin-left: 10px;
+}

@@ -4,9 +4,16 @@
 /node_modules
 /.pnp
 .pnp.js
+<<<<<<< HEAD
 
 # testing
 /coverage
+=======
+/dist
+# testing
+/coverage
+/csharp
+>>>>>>> fc58a52... release 1.1
 
 # production
 /build
@@ -21,3 +28,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+=======
+
+/photon-0.1.2-dist
+>>>>>>> fc58a52... release 1.1

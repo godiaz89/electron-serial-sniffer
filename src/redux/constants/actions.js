@@ -1,0 +1,15 @@
+export const LOAD_PORTS='LOAD_PORTS';
+export const PORTS_LOADED='PORTS_LOADED';
+export const UPDATE_PORT='UPDATE_PORT';
+export const START_SNIFFING='START_SNIFFING';
+export const STOP_SNIFFING='STOP_SNIFFING';
+export const PORT_DATA='PORT_DATA';
+export const CLEAN_PORT_DATA='CLEAN_PORT_DATA';
+
+
+
+export const MENU_CHANGE='MENU_CHANGE';
+export const MAXIMIZE='MAXIMIZE';
+export const UNMAXIMIZE='UNMAXIMIZE';
+export const MINIMIZE='MINIMIZE';
+export const CLOSE_PAGE='CLOSE_PAGE';
