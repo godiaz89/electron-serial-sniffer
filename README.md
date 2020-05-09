@@ -24,7 +24,3 @@ And finally building the proyect.
 ### `npm run build`
 
 The installation files will be in the "dist" folder.
-
-
-## Available scripts
-
